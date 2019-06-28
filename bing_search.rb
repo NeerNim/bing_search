@@ -1,23 +1,24 @@
 require 'rest-client'
 
 class BingSearch
-
-  def initialize
-    @url = 'https://www.bing.com/search' 
+  attr_accessor :response, :query
+  def initialize(query)
+    @query = query 
+    @url = 'https://www.bing.com/search'
   end
 
-  def getQuery(query)
-    RestClient.get (@url, {params})
+  def getQuery
+    RestClient.get @url, {params: {q: @query}}
   end
 
-  def displayQuery
-    getQuery
+  def display_query
+    p getQuery.code
+    p getQuery.body
   end
-  
 
 
 end
 
-
-
+results = BingSearch.new("hey")
+results.display_query
 
