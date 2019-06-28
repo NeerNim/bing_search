@@ -1,7 +1,8 @@
 require 'rest-client'
 
 class BingSearch
-  attr_accessor :response, :query
+  attr_accessor :query
+
   def initialize(query)
     @query = query 
     @url = 'https://www.bing.com/search'
@@ -12,11 +13,11 @@ class BingSearch
   end
 
   def display_query
-    p getQuery.code
-    p getQuery.body
+    getQuery.code
+    getQuery.body
+    getQuery.cookies
+    getQuery.headers
   end
-
-
 end
 
 results = BingSearch.new("hey")
