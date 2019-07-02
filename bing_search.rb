@@ -1,15 +1,10 @@
 require 'rest-client'
 
 class BingSearch
-  attr_accessor :query
 
   def initialize(query)
     @query = query 
     @url = 'https://www.bing.com/search'
-  end
-
-  def getQuery
-    RestClient.get @url, {params: {q: @query}}
   end
 
   def display_query
@@ -18,8 +13,26 @@ class BingSearch
     getQuery.cookies
     getQuery.headers
   end
+  
+  def query=(query)
+    @query = query    
+  end
+  def query
+    @query 
+  end
+
+  private
+  attr_reader :query, :url
+
+  def getQuery
+    @response ||= RestClient.get url, {params: {q: query}}
+  end
+
 end
 
-results = BingSearch.new("hey")
-results.display_query
+query = gets.chomp
+results = BingSearch.new(query)
+p results.display_query
+
+
 
